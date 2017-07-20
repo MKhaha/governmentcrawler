@@ -1,0 +1,67 @@
+[INFO  - 2017-07-20T05:49:57.242Z] GhostDriver - Main - running on port 8372
+[INFO  - 2017-07-20T05:49:57.930Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":false}
+[INFO  - 2017-07-20T05:49:57.931Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.customHeaders:  - {}
+[INFO  - 2017-07-20T05:49:57.931Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-7-32bit","javascriptEnabled":true,"takesScreenshot":false,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-07-20T05:49:57.931Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 434daaf0-6d0f-11e7-bcff-95f9bfe1aba6
+[ERROR - 2017-07-20T05:53:58.864Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.864Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:88)
+[ERROR - 2017-07-20T05:53:58.865Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.865Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:104)
+[ERROR - 2017-07-20T05:53:58.865Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.866Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:110)
+[ERROR - 2017-07-20T05:53:58.866Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.866Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:119)
+[ERROR - 2017-07-20T05:53:58.867Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.867Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:124)
+[ERROR - 2017-07-20T05:53:58.867Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.867Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:132)
+[ERROR - 2017-07-20T05:53:58.868Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T05:53:58.868Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html:140)
+[INFO  - 2017-07-20T05:54:57.241Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T05:59:57.252Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:04:57.263Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:09:57.263Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:14:57.264Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:19:57.274Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:24:57.287Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[ERROR - 2017-07-20T06:26:50.662Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.662Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:88)
+[ERROR - 2017-07-20T06:26:50.663Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.663Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:104)
+[ERROR - 2017-07-20T06:26:50.664Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.664Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:110)
+[ERROR - 2017-07-20T06:26:50.665Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.666Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:119)
+[ERROR - 2017-07-20T06:26:50.667Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.667Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:124)
+[ERROR - 2017-07-20T06:26:50.668Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.668Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:132)
+[ERROR - 2017-07-20T06:26:50.669Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:26:50.669Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086823/index.html#:140)
+[INFO  - 2017-07-20T06:29:57.319Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:34:57.318Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[ERROR - 2017-07-20T06:38:01.219Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:38:01.220Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086242/index.html:43)
+[ERROR - 2017-07-20T06:38:01.221Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:38:01.221Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086242/index.html:55)
+[ERROR - 2017-07-20T06:38:01.222Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - msg: ReferenceError: Can't find variable: $
+[ERROR - 2017-07-20T06:38:01.222Z] Session [434daaf0-6d0f-11e7-bcff-95f9bfe1aba6] - page.onError - stack:
+  global code (http://www.zjjxw.gov.cn/col/col1086242/index.html:67)
+[INFO  - 2017-07-20T06:39:57.320Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-07-20T06:44:57.319Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
