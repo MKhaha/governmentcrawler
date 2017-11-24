@@ -192,18 +192,18 @@ class WebDriverPool {
 				if (webDriverList.size() < capacity) {
 
 					// add new WebDriver instance into pool
-					try {
-						configure();
-						innerQueue.add(mDriver);
-						webDriverList.add(mDriver);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						configure();
+//						innerQueue.add(mDriver);
+//						webDriverList.add(mDriver);
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 
-//					ChromeDriver e = new ChromeDriver();
-//					// WebDriver e = getWebDriver();
-//					innerQueue.add(e);
-//					webDriverList.add(e);
+					ChromeDriver e = new ChromeDriver();
+					// WebDriver e = getWebDriver();
+					innerQueue.add(e);
+					webDriverList.add(e);
 				}
 			}
 

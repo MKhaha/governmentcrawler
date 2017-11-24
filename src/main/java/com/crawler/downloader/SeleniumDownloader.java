@@ -87,14 +87,23 @@ public class SeleniumDownloader implements Downloader, Closeable {
 		}
 		WebDriver.Options manage = webDriver.manage();
 		Site site = task.getSite();
-		if (site.getCookies() != null) {
-			for (Map.Entry<String, String> cookieEntry : site.getCookies()
-					.entrySet()) {
-				Cookie cookie = new Cookie(cookieEntry.getKey(),
-						cookieEntry.getValue());
-				manage.addCookie(cookie);
-			}
-		}
+
+		Cookie cookie = new Cookie("ASP.NET_SessionId", "ootiqjuowcmmtwmz2kfm5jim");
+		manage.addCookie(cookie);
+		Cookie cookie2 = new Cookie(".ASPXAUTH", "15E2AF9A323CA07E9098B5E8D2CB327F463CFE479CDD7AB2BE13DB42FB340308D94BD276A0A62531E918332E9251B8964EF0A306D25E23A9448A15321FEF28EBF6FD48B92EC873A4CF3911B494583AF076ABB45A1D71D4EBDE39AAAFB69CD8BC572102F6FFE052CAEDBB1554D48B89625289B3E8");
+		manage.addCookie(cookie2);
+
+//		site.addCookie("ASP.NET_SessionId", "ootiqjuowcmmtwmz2kfm5jim");
+//		site.addCookie(".ASPXAUTH", "15E2AF9A323CA07E9098B5E8D2CB327F463CFE479CDD7AB2BE13DB42FB340308D94BD276A0A62531E918332E9251B8964EF0A306D25E23A9448A15321FEF28EBF6FD48B92EC873A4CF3911B494583AF076ABB45A1D71D4EBDE39AAAFB69CD8BC572102F6FFE052CAEDBB1554D48B89625289B3E8");
+
+//		if (site.getCookies() != null) {
+//			for (Map.Entry<String, String> cookieEntry : site.getCookies()
+//					.entrySet()) {
+//				Cookie cookie = new Cookie(cookieEntry.getKey(),
+//						cookieEntry.getValue());
+//				manage.addCookie(cookie);
+//			}
+//		}
 
 		/*
 		 * TODO You can add mouse event or other processes
