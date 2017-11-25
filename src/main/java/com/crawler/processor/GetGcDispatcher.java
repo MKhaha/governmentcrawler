@@ -119,6 +119,7 @@ public class GetGcDispatcher {
                 stringBuilder.append(driver.findElement(By.cssSelector("#grid > tbody")).getText());
 
 
+
                 if (i % 50 == 0) {
                     startTime = System.nanoTime();
                     writeFile(fileName, stringBuilder.toString());
