@@ -53,6 +53,8 @@ public class GetGcFilling {
         int pageNum;
         String fileName = "D:/data/fillingInfo.txt";
 
+        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
+
         WebDriver driver = new ChromeDriver();
         try {
             Thread.sleep(3000);

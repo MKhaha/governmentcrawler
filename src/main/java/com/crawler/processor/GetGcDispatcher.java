@@ -1,22 +1,14 @@
 package com.crawler.processor;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Site;
 
-import javax.print.DocFlavor;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Locale;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -25,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * ${PACKAGE_NAME}.
  * governmentcrawler
  */
-public class GetGcInfoAll {
+public class GetGcDispatcher {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(0).setTimeOut(3000);
 
@@ -82,7 +74,10 @@ public class GetGcInfoAll {
         //模拟点击登录按钮
         driver.findElement(By.id("btnlogin")).click();
 
-        driver.get("http://hzrq.zhejqpgl.org/Base/CylinderList.aspx");
+        driver.get("http://hzrq.zhejqpgl.org/Record/DeliveryList.aspx");
+
+        driver.findElement(By.cssSelector("#deliver_date1")).clear();
+        driver.findElement(By.cssSelector("#deliver_date1")).sendKeys("2017-7-1");
 
         optionNum = 3;
         // 最大47
@@ -90,7 +85,7 @@ public class GetGcInfoAll {
         while (optionNum <= optionMax) {
             String companyName = driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).getText();
             System.out.println("companyName = [" + companyName + "]");
-            String fileName = "D:/data/气瓶信息/" + companyName + ".txt";
+            String fileName = "D:/data/配送信息/配送信息" + companyName + ".txt";
             driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).click();
             driver.findElement(By.cssSelector("#btnSearch")).click();
 
