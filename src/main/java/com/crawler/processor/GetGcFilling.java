@@ -72,7 +72,7 @@ public class GetGcFilling {
 
         driver.get("http://hzrq.zhejqpgl.org/Record/FillingList.aspx");
         driver.findElement(By.cssSelector("#txtFillDateStart")).clear();
-        driver.findElement(By.cssSelector("#txtFillDateStart")).sendKeys("2017-7-1");
+        driver.findElement(By.cssSelector("#txtFillDateStart")).sendKeys("2017-10-1");
         driver.findElement(By.cssSelector("#btnSearch")).click();
 
 
