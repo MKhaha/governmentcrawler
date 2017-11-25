@@ -1,6 +1,7 @@
 package com.crawler.processor;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Site;
@@ -9,6 +10,10 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 
@@ -20,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class GetGcDispatcher {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(0).setTimeOut(3000);
+    static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     private WebDriver driver;
 
@@ -44,17 +50,35 @@ public class GetGcDispatcher {
         }
     }
 
+    /**
+     * 指定日期加上天数后的日期
+     * @param num 为增加的天数
+     * @param newDate 创建时间
+     * @return
+     * @throws ParseException
+     */
+    public static Date plusDay(int num, Date newDate) {
+        Date currentDate;
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(newDate);
+        ca.add(Calendar.DATE, num);// num为增加的天数，可以改变的
+        currentDate = ca.getTime();
+        return currentDate;
+    }
+
+
+
     public static void main(String[] args) {
 
-        int sleepTime = 1000;
-        int optionNum;
-        int optionMax;
         int pageNum;
 
-        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
+        String startDateString = "2017-10-1";
+        String endDateString = "2017-11-25";
+
+//        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         try {
-            Thread.sleep(6000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,81 +86,76 @@ public class GetGcDispatcher {
 
         driver.get("http://hzrq.zhejqpgl.org");
 
-        driver.findElement(By.id("txtcode")).clear();
-
-        //在******中填你的用户名
-        driver.findElement(By.id("txtcode")).sendKeys("13303000161");
-
-        driver.findElement(By.id("txtpass")).clear();
-        //在*******填你密码
-        driver.findElement(By.id("txtpass")).sendKeys("123456");
-
-        //模拟点击登录按钮
-        driver.findElement(By.id("btnlogin")).click();
+        driver.findElement(By.cssSelector("#txtcode")).clear();
+        driver.findElement(By.cssSelector("#txtcode")).sendKeys("13303000161");
+        driver.findElement(By.cssSelector("#txtpass")).clear();
+        driver.findElement(By.cssSelector("#txtpass")).sendKeys("123456");
+        driver.findElement(By.cssSelector("#btnlogin")).click();
 
         driver.get("http://hzrq.zhejqpgl.org/Record/DeliveryList.aspx");
 
-        driver.findElement(By.cssSelector("#deliver_date1")).clear();
-        driver.findElement(By.cssSelector("#deliver_date1")).sendKeys("2017-7-1");
+        Date startDate;
+        Date endDate;
+        try {
+            startDate = format.parse(startDateString);
+            endDate = format.parse(endDateString);
+        } catch (ParseException e) {
+            System.out.println("日期解析错误");
+            return;
+        }
 
-        optionNum = 3;
-        // 最大47
-        optionMax = 47;
-        while (optionNum <= optionMax) {
-            String companyName = driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).getText();
-            System.out.println("companyName = [" + companyName + "]");
-            String fileName = "D:/data/配送信息/配送信息" + companyName + ".txt";
-            driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).click();
+        Date currentDate = startDate;
+        while (currentDate.getTime() <= endDate.getTime()) {
+
+            String fileName = "D:/data/dispatch/" + format.format(currentDate) + ".txt";
+
+            ((JavascriptExecutor) driver).executeScript("document.getElementById('deliver_date2').removeAttribute('readonly')");
+            System.out.println(format.format(currentDate));
+            driver.findElement(By.cssSelector("#deliver_date2")).clear();
+            driver.findElement(By.cssSelector("#deliver_date2")).sendKeys(format.format(currentDate));
+            driver.findElement(By.cssSelector("#deliver_date1")).clear();
+            driver.findElement(By.cssSelector("#deliver_date1")).sendKeys(format.format(currentDate));
+
             driver.findElement(By.cssSelector("#btnSearch")).click();
 
+
+            // 获取页数
             String pageInfo = driver.findElement(By.cssSelector("#pager_lblInfo")).getText();
             String[] temp1 = pageInfo.split("/");
-//            for (String item : temp1) {
-//                System.out.println("item = [" + item + "]");
-
-//            }
+            for (String item : temp1) {
+                System.out.println("item = [" + item + "]");
+            }
             String[] temp2 = temp1[1].trim().split(" ");
             System.out.println("temp2 = [" + temp2[0] + "]");
             System.out.println("pageInfo = [" + pageInfo + "]");
             pageNum = Integer.parseInt(temp2[0]);
 
-//            System.out.println("driver.findElement(By.cssSelector(\"#grid > tbody\")).getText(); = [" + driver.findElement(By.cssSelector("#grid > tbody")).getText() + "]");
-            Long startTime = System.nanoTime();
-            writeFile(fileName, driver.findElement(By.cssSelector("#grid > tbody")).getText());
-            Long endTime = System.nanoTime();
-            System.out.println("deltaTime = [" + (endTime - startTime) + "]");
 
-            String fileContent = "";
+            // 将第一页写入文件
+            String cssSelectorFindBody = "#grid > tbody";
+            writeFile(fileName, driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
+
+            // 抓取数据写入文件的缓存
             StringBuilder stringBuilder = new StringBuilder();
+
             for (int i = 0; i < pageNum - 1; i++) {
-                driver.findElement(By.xpath("//*[@id=\"pager_btnNext\"]")).click();
+                System.out.println("pageNumber : " + (i + 2));
+                driver.findElement(By.cssSelector("#pager_btnNext")).click();
 
-                pageInfo = driver.findElement(By.cssSelector("#pager_lblInfo")).getText();
-                temp1 = pageInfo.split("/");
-                temp2 = temp1[1].split(" ");
-                System.out.println("temp2 = [" + temp2[0] + "]");
-                System.out.println("pageInfo = [" + pageInfo + "]");
-
-                stringBuilder.append(driver.findElement(By.cssSelector("#grid > tbody")).getText());
-
-
+                stringBuilder.append(driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
 
                 if (i % 50 == 0) {
-                    startTime = System.nanoTime();
                     writeFile(fileName, stringBuilder.toString());
                     stringBuilder.setLength(0);
-                    endTime = System.nanoTime();
-                    System.out.println("deltaTime = [" + (endTime - startTime) + "]");
                 }
             }
             if (stringBuilder.length() != 0) {
-                startTime = System.nanoTime();
                 writeFile(fileName, stringBuilder.toString());
                 stringBuilder.setLength(0);
-                endTime = System.nanoTime();
-                System.out.println("deltaTime = [" + (endTime - startTime) + "]");
             }
-            optionNum++;
+
+            currentDate = plusDay(1, currentDate);
+            System.out.println(format.format(currentDate));
         }
 
         driver.close();

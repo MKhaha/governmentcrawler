@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Site;
 
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -69,18 +66,15 @@ public class GetGcFilling {
         return currentDate;
     }
 
+
+
     public static void main(String[] args) {
 
-
-        int sleepTime = 1000;
-        int optionNum;
-        int optionMax;
         int pageNum;
 
         String startDateString = "2017-10-1";
         String endDateString = "2017-11-25";
 
-        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         try {
@@ -114,7 +108,7 @@ public class GetGcFilling {
         Date currentDate = startDate;
         while (currentDate.getTime() <= endDate.getTime()) {
 
-            String fileName = "D:/data/" + format.format(currentDate) + ".txt";
+            String fileName = "D:/data/filling/" + format.format(currentDate) + ".txt";
 
             ((JavascriptExecutor) driver).executeScript("document.getElementById('txtFillDateEnd').removeAttribute('readonly')");
             System.out.println(format.format(currentDate));
@@ -124,12 +118,6 @@ public class GetGcFilling {
             driver.findElement(By.cssSelector("#txtFillDateStart")).sendKeys(format.format(currentDate));
 
             driver.findElement(By.cssSelector("#btnSearch")).click();
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
 
             // 获取页数
@@ -151,28 +139,25 @@ public class GetGcFilling {
             // 抓取数据写入文件的缓存
             StringBuilder stringBuilder = new StringBuilder();
 
-//            for (int i = 0; i < pageNum - 1; i++) {
-//                System.out.println("pageNumber : " + (i + 2));
-//                driver.findElement(By.cssSelector("#Pager1_btnNext")).click();
-//
-//                stringBuilder.append(driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
-//
-//                if (i % 50 == 0) {
-//                    writeFile(fileName, stringBuilder.toString());
-//                    stringBuilder.setLength(0);
-//                }
-//            }
-//            if (stringBuilder.length() != 0) {
-//                writeFile(fileName, stringBuilder.toString());
-//                stringBuilder.setLength(0);
-//            }
+            for (int i = 0; i < pageNum - 1; i++) {
+                System.out.println("pageNumber : " + (i + 2));
+                driver.findElement(By.cssSelector("#Pager1_btnNext")).click();
+
+                stringBuilder.append(driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
+
+                if (i % 50 == 0) {
+                    writeFile(fileName, stringBuilder.toString());
+                    stringBuilder.setLength(0);
+                }
+            }
+            if (stringBuilder.length() != 0) {
+                writeFile(fileName, stringBuilder.toString());
+                stringBuilder.setLength(0);
+            }
 
             currentDate = plusDay(1, currentDate);
             System.out.println(format.format(currentDate));
-
         }
-
-
 
         driver.close();
     }
