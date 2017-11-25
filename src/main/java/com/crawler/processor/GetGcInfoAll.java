@@ -35,12 +35,12 @@ public class GetGcInfoAll {
      * 追加文件：使用FileOutputStream，在构造FileOutputStream时，把第二个参数设为true
      *
      */
-    public static void writeFile(String file, String conent) {
+    public static void writeFile(String file, String content) {
         BufferedWriter out = null;
         try {
             out = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(file, true)));
-            out.write(conent + "\n");
+            out.write(content + "\n");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
