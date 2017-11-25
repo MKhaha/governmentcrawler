@@ -93,6 +93,7 @@ public class GetGcDispatcher {
             String[] temp1 = pageInfo.split("/");
 //            for (String item : temp1) {
 //                System.out.println("item = [" + item + "]");
+
 //            }
             String[] temp2 = temp1[1].trim().split(" ");
             System.out.println("temp2 = [" + temp2[0] + "]");
