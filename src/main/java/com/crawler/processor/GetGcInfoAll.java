@@ -11,10 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import us.codecraft.webmagic.Site;
 
 import javax.print.DocFlavor;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -52,17 +51,57 @@ public class GetGcInfoAll {
         }
     }
 
+    public static void mkDir(File file) {
+        if (file.getParentFile().exists()) {
+            if (!file.mkdir()) {
+                System.out.println("创建文件返回失败");
+            }
+        } else {
+            mkDir(file.getParentFile());
+            if (!file.mkdir()) {
+                System.out.println("创建文件返回失败");
+            }
+
+        }
+    }
+
+    // 判断文件夹是否存在
+    public static void judeDirExists(String filePath) {
+
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                System.out.println("dir exists");
+            } else {
+                System.out.println("the same name file exists, can not create dir");
+            }
+        } else {
+            System.out.println("文件夹不存在，创建文件夹 ：" + file);
+            if (!file.mkdir()) {
+                System.out.println("创建文件返回失败");
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
 
         int sleepTime = 1000;
         int optionNum;
         int optionMax;
         int pageNum;
+        String dirPath = "D:/data/气瓶信息/";
 
-        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        String dirPathCurrentDate = dirPath + formatter.format(currentTime) + "/";
+        System.out.println(dirPathCurrentDate);
+        File file = new File(dirPathCurrentDate);
+        mkDir(file);
+
         WebDriver driver = new ChromeDriver();
         try {
-            Thread.sleep(6000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -84,59 +123,38 @@ public class GetGcInfoAll {
 
         driver.get("http://hzrq.zhejqpgl.org/Base/CylinderList.aspx");
 
-        optionNum = 3;
+        optionNum = 2;
         // 最大47
         optionMax = 47;
         while (optionNum <= optionMax) {
+
             String companyName = driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).getText();
-            System.out.println("companyName = [" + companyName + "]");
-            String fileName = "D:/data/气瓶信息/" + companyName + ".txt";
+            String fileName = dirPathCurrentDate + companyName + ".txt";
+            System.out.println("写入文件：" + fileName);
+
             driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).click();
             driver.findElement(By.cssSelector("#btnSearch")).click();
 
             String pageInfo = driver.findElement(By.cssSelector("#pager_lblInfo")).getText();
             String[] temp1 = pageInfo.split("/");
-//            for (String item : temp1) {
-//                System.out.println("item = [" + item + "]");
-//            }
             String[] temp2 = temp1[1].trim().split(" ");
-            System.out.println("temp2 = [" + temp2[0] + "]");
-            System.out.println("pageInfo = [" + pageInfo + "]");
             pageNum = Integer.parseInt(temp2[0]);
+            System.out.println("pageNum : " + pageNum );
 
-//            System.out.println("driver.findElement(By.cssSelector(\"#grid > tbody\")).getText(); = [" + driver.findElement(By.cssSelector("#grid > tbody")).getText() + "]");
-            Long startTime = System.nanoTime();
-            writeFile(fileName, driver.findElement(By.cssSelector("#grid > tbody")).getText());
-            Long endTime = System.nanoTime();
-            System.out.println("deltaTime = [" + (endTime - startTime) + "]");
-
-            String fileContent = "";
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < pageNum - 1; i++) {
-                driver.findElement(By.xpath("//*[@id=\"pager_btnNext\"]")).click();
-
-                pageInfo = driver.findElement(By.cssSelector("#pager_lblInfo")).getText();
-                temp1 = pageInfo.split("/");
-                temp2 = temp1[1].split(" ");
-                System.out.println("temp2 = [" + temp2[0] + "]");
-                System.out.println("pageInfo = [" + pageInfo + "]");
-
                 stringBuilder.append(driver.findElement(By.cssSelector("#grid > tbody")).getText());
 
+                driver.findElement(By.xpath("//*[@id=\"pager_btnNext\"]")).click();
+
                 if (i % 50 == 0) {
-                    startTime = System.nanoTime();
                     writeFile(fileName, stringBuilder.toString());
                     stringBuilder.setLength(0);
-                    endTime = System.nanoTime();
-                    System.out.println("deltaTime = [" + (endTime - startTime) + "]");
                 }
             }
             if (stringBuilder.length() != 0) {
-                startTime = System.nanoTime();
                 writeFile(fileName, stringBuilder.toString());
                 stringBuilder.setLength(0);
-                endTime = System.nanoTime();
-                System.out.println("deltaTime = [" + (endTime - startTime) + "]");
             }
             optionNum++;
         }

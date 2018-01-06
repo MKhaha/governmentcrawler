@@ -72,8 +72,8 @@ public class GetGcFilling {
 
         int pageNum;
 
-        String startDateString = "2017-10-1";
-        String endDateString = "2017-11-25";
+        String startDateString = "2017-11-28";
+        String endDateString = "2017-11-28";
 
 
         WebDriver driver = new ChromeDriver();

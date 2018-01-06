@@ -22,12 +22,13 @@ import java.util.concurrent.TimeUnit;
  * ${PACKAGE_NAME}.
  * governmentcrawler
  */
-public class GetGcDispatcher {
+public class GetGcFillingTemp {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(0).setTimeOut(3000);
     static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     private WebDriver driver;
+
 
     /**
      * 追加文件：使用FileOutputStream，在构造FileOutputStream时，把第二个参数设为true
@@ -72,10 +73,10 @@ public class GetGcDispatcher {
 
         int pageNum;
 
-        String startDateString = "2017-11-28";
-        String endDateString = "2017-11-28";
+        String startDateString = "2018-1-5";
+        String endDateString = "2018-1-5";
 
-//        System.setProperty("webdriver.chrome.driver", "D:/data/chromedriver.exe");
+
         WebDriver driver = new ChromeDriver();
         try {
             Thread.sleep(3000);
@@ -92,7 +93,8 @@ public class GetGcDispatcher {
         driver.findElement(By.cssSelector("#txtpass")).sendKeys("123456");
         driver.findElement(By.cssSelector("#btnlogin")).click();
 
-        driver.get("http://hzrq.zhejqpgl.org/Record/DeliveryList.aspx");
+
+        driver.get("http://hzrq.zhejqpgl.org/Record/FillingList.aspx");
 
         Date startDate;
         Date endDate;
@@ -104,23 +106,25 @@ public class GetGcDispatcher {
             return;
         }
 
+        driver.findElement(By.cssSelector("#txtCzzName > option:nth-child(5)")).click();
+
         Date currentDate = startDate;
         while (currentDate.getTime() <= endDate.getTime()) {
 
-            String fileName = "D:/data/dispatch/" + format.format(currentDate) + ".txt";
+            String fileName = "D:/data/filling/" + format.format(currentDate) + ".txt";
 
-            ((JavascriptExecutor) driver).executeScript("document.getElementById('deliver_date2').removeAttribute('readonly')");
+            ((JavascriptExecutor) driver).executeScript("document.getElementById('txtFillDateEnd').removeAttribute('readonly')");
             System.out.println(format.format(currentDate));
-            driver.findElement(By.cssSelector("#deliver_date2")).clear();
-            driver.findElement(By.cssSelector("#deliver_date2")).sendKeys(format.format(currentDate));
-            driver.findElement(By.cssSelector("#deliver_date1")).clear();
-            driver.findElement(By.cssSelector("#deliver_date1")).sendKeys(format.format(currentDate));
+            driver.findElement(By.cssSelector("#txtFillDateEnd")).clear();
+            driver.findElement(By.cssSelector("#txtFillDateEnd")).sendKeys(format.format(currentDate));
+            driver.findElement(By.cssSelector("#txtFillDateStart")).clear();
+            driver.findElement(By.cssSelector("#txtFillDateStart")).sendKeys(format.format(currentDate));
 
             driver.findElement(By.cssSelector("#btnSearch")).click();
 
 
             // 获取页数
-            String pageInfo = driver.findElement(By.cssSelector("#pager_lblInfo")).getText();
+            String pageInfo = driver.findElement(By.cssSelector("#Pager1_lblInfo")).getText();
             String[] temp1 = pageInfo.split("/");
             for (String item : temp1) {
                 System.out.println("item = [" + item + "]");
@@ -132,7 +136,7 @@ public class GetGcDispatcher {
 
 
             // 将第一页写入文件
-            String cssSelectorFindBody = "#grid > tbody";
+            String cssSelectorFindBody = "#gridView > tbody";
             writeFile(fileName, driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
 
             // 抓取数据写入文件的缓存
@@ -140,7 +144,7 @@ public class GetGcDispatcher {
 
             for (int i = 0; i < pageNum - 1; i++) {
                 System.out.println("pageNumber : " + (i + 2));
-                driver.findElement(By.cssSelector("#pager_btnNext")).click();
+                driver.findElement(By.cssSelector("#Pager1_btnNext")).click();
 
                 stringBuilder.append(driver.findElement(By.cssSelector(cssSelectorFindBody)).getText());
 
