@@ -78,7 +78,6 @@ public class GetGcUser {
 
     public static void main(String[] args) {
 
-        int sleepTime = 1000;
         int optionNum;
         int optionMax;
         int pageNum;
@@ -115,9 +114,9 @@ public class GetGcUser {
 
         driver.get("http://hzrq.zhejqpgl.org/djjg_city/DataList/GasUserList.aspx");
 
+        // 收集平阳县的燃气用户数据
         optionNum = 18;
-        // 最大47
-        optionMax = 22;
+        optionMax = 23;
         while (optionNum <= optionMax) {
 
             String companyName = driver.findElement(By.cssSelector(String.format("#lstCompany > option:nth-child(%d)", optionNum))).getText();
